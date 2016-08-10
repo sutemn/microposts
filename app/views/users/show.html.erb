@@ -5,7 +5,10 @@
         <%= gravatar_for @user %>
         <%= @user.name %>
       </h1>
-    </section>
+        <%= @user.email %> <br>
+        <%= @user.bio %> <br>
+        <%= @user.location %> <br>
+          </section>
   </aside>
   <div class="col-md-8">
     <%= render 'follow_form' if logged_in? %>

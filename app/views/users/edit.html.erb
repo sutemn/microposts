@@ -1,5 +1,5 @@
 
-<h1>Sign up</h1>
+<h1>Update your profile</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
@@ -13,7 +13,7 @@
       <%= f.email_field :email, class: 'form-control' %>
 
       <%= f.label :bio %>
-      <%= f.text_field :bio, class: 'form-control' %>
+      <%= f.text_area :bio, class: 'form-control' %>
 
       <%= f.label :location %>
       <%= f.text_field :location, class: 'form-control' %>
@@ -24,7 +24,12 @@
       <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
 
-      <%= f.submit "Create my account", class: "btn btn-primary" %>
+      <%= f.submit "Save changes", class: "btn btn-primary" %>
     <% end %>
+
+    <div class="gravatar_edit">
+      <%= gravatar_for @user %>
+      <a href="http://gravatar.com/emails" target="_blank">change</a>
+    </div>
   </div>
 </div>
