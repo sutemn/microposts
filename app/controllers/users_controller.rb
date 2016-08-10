@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :update]
+  before_action :set_user,       only: [:show, :edit, :update]
   before_action :correct_user,   only: [:edit, :update]
 
   def show
-    @user = User.find(params[:id])
     @microposts = @user.microposts.order(created_at: :desc)
   end
   
@@ -21,13 +21,10 @@ class UsersController < ApplicationController
     end
   end
 
-
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
       redirect_to @user
@@ -42,7 +39,8 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :bio, :location, 
                                  :password_confirmation)
   end
-      # beforeフィルター
+    
+    # beforeフィルター
 
     # ログイン済みユーザーかどうか確認
     def logged_in_user
@@ -50,6 +48,11 @@ class UsersController < ApplicationController
         flash[:danger] = "Please log in."
         redirect_to login_url
       end
+    end
+    
+    # ユーザー情報をset（？）
+    def set_user
+      @user = User.find(params[:id])
     end
 
     # 正しいユーザーかどうか確認
