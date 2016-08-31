@@ -12,7 +12,13 @@ class User < ActiveRecord::Base
   has_many :following_relationships, class_name:  "Relationship",
                                      foreign_key: "follower_id",
                                      dependent:   :destroy
+  # ralationshipsテーブル
+  # (follower_id)user_id  (followed_id)user_id
+  # @user.following_relationships << Relationshipクラスのインスタンスのリスト
   has_many :following_users, through: :following_relationships, source: :followed
+  # フォローされている人の一覧、フォローしている人の一覧を取得するには
+  # 関連テーブル(relationships)を通して、ユーザーのリストを取得したい。
+  # @user.followings << Userクラスのインスタンスのリスト
   
   has_many :follower_relationships, class_name:  "Relationship",
                                     foreign_key: "followed_id",
@@ -21,6 +27,10 @@ class User < ActiveRecord::Base
 
   # 他のユーザーをフォローする
   def follow(other_user)
+    # relationshipsテーブルには
+    # follower_id < 自分UserのID
+    # followed_id < 相手のID
+    # Relationship.find_or_create_by(following_id: self.id, followed_id: other_user.id)
     following_relationships.find_or_create_by(followed_id: other_user.id)
   end
 
