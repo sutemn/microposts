@@ -1,10 +1,15 @@
 <h1><%= @title %></h1>
 <% @users.each do |user| %>
+
     <section class="user_info">
       <%= gravatar_for user %>
-      <%= user.name %> <br>
+      <%= link_to user.name, user_path(user) %> <br>
+      <%= user.email %> <br>
+      <!--<%= user.name %> <br>-->
     </section>
     <br>
+    
+    
   <!--<%= user.name %><br>-->
   <!--<%= gravatar_for @user %><cr>-->
       <!--<section class="user_info">-->
